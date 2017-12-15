@@ -25,6 +25,10 @@ class CommandFile
     end
   end
 
+  def show_error
+    puts errors.first.message if errors.any?
+  end
+
   def path_is_defined
     raise ArgumentError, 'Please provide a file' if path.nil?
   end

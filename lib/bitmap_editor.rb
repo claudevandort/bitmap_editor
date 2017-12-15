@@ -1,10 +1,14 @@
 class BitmapEditor
-  attr_accessor :file
+  attr_accessor :verbose, :file
 
-  def run(file)
-    self.file = CommandFile.new file
-    unless self.file.valid?
-      puts self.file.errors.first.message
+  def initialize(verbose: true)
+    self.verbose = verbose
+  end
+
+  def run(file_path)
+    file = CommandFile.new file_path
+    unless file.valid?
+      file.show_error if verbose
       return false
     end
 
