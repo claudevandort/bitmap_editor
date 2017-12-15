@@ -4,21 +4,25 @@ context CommandFile do
   it '.new requires a file path' do
     file = CommandFile.new nil
     file.validate
-    expect(file.errors.first.message).to eq 'Please provide a file'
+    expect(file.error_message).to eq 'Please provide a file'
   end
 
   it '.new requires a valid file path' do
     file = CommandFile.new 'examples/this_file_doesnt_exists.txt'
     file.validate
-    expect(file.errors.first.message).to eq 'Please provide an existing file'
+    expect(file.error_message).to eq 'Please provide an existing file'
   end
 
   it '.new requires a non-empty file' do
     file = CommandFile.new 'examples/empty.txt'
     file.validate
-    expect(file.errors.first.message).to eq 'Please provide a populated file'
+    expect(file.error_message).to eq 'Please provide a populated file'
   end
-  it 'file lines have a valid command name'
+  it 'lines have a valid command name' do
+    file = CommandFile.new 'examples/invalid_commands.txt'
+    file.validate
+    expect(file.error_message).to eq 'File has invalid commands'
+  end
   it 'commands\'s params are separated with a whitespace'
   context 'new image command' do
     it 'has two params'

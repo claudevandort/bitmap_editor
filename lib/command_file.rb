@@ -4,6 +4,7 @@ class CommandFile
     path_is_defined
     path_is_valid
     file_is_not_empty
+    command_manes_are_valid
   }
 
   def initialize(file_path)
@@ -22,12 +23,18 @@ class CommandFile
         send val
       rescue ArgumentError => e
         errors << e
+      rescue StandardError => e
+        errors << e
       end
     end
   end
 
+  def error_message
+    errors.first.message if errors.any?
+  end
+
   def show_error
-    puts errors.first.message if errors.any?
+    puts error_message if errors.any?
   end
 
   def path_is_defined
@@ -40,5 +47,15 @@ class CommandFile
 
   def file_is_not_empty
     raise ArgumentError, 'Please provide a populated file' unless !path.nil? and File.exists?(path) and File.open(path).count > 0
+  end
+
+  def valid_file?
+    !path.nil? and File.exists?(path) and File.open(path).count > 0
+  end
+
+  def command_manes_are_valid
+    File.open(path).each do |line|
+      return raise StandardError, 'File has invalid commands' if /[ICLVHS]/.match(line[0]).nil?
+    end if valid_file?
   end
 end
