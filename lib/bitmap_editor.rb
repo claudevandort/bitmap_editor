@@ -1,7 +1,10 @@
 class BitmapEditor
 
   def run(file)
-    return puts "please provide correct file" if file.nil? || !File.exists?(file)
+    if file.nil? || !File.exists?(file)
+      puts 'please provide correct file'
+      return false
+    end
 
     File.open(file).each do |line|
       line = line.chomp
