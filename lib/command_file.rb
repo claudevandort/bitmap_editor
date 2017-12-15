@@ -3,6 +3,7 @@ class CommandFile
   VALIDATIONS = %w{
     path_is_defined
     path_is_valid
+    file_is_not_empty
   }
 
   def initialize(file_path)
@@ -35,5 +36,9 @@ class CommandFile
 
   def path_is_valid
     raise ArgumentError, 'Please provide an existing file' unless !path.nil? and File.exists?(path)
+  end
+
+  def file_is_not_empty
+    raise ArgumentError, 'Please provide a populated file' unless !path.nil? and File.exists?(path) and File.open(path).count > 0
   end
 end
