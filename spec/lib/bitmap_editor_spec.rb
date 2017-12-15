@@ -1,3 +1,4 @@
+require 'command_file'
 require 'bitmap_editor'
 
 describe BitmapEditor do
