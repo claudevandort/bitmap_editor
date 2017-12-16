@@ -5,6 +5,7 @@ class CommandFile
     path_is_valid
     file_is_not_empty
     command_manes_are_valid
+    space_after_command_name
   }
 
   def initialize(file_path)
@@ -56,6 +57,12 @@ class CommandFile
   def command_manes_are_valid
     File.open(path).each do |line|
       return raise StandardError, 'File has invalid commands' if /[ICLVHS]/.match(line[0]).nil?
+    end if valid_file?
+  end
+
+  def space_after_command_name
+    File.open(path).each do |line|
+      return raise StandardError, 'There\'s not a space after the command name' if /[ ]/.match(line[1]).nil?
     end if valid_file?
   end
 end
