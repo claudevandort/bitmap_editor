@@ -18,6 +18,7 @@ context CommandFile do
     file.validate
     expect(file.error_message).to eq 'Please provide a populated file'
   end
+=begin
   it 'lines have a valid command name' do
     file = CommandFile.new 'examples/invalid_commands.txt'
     file.validate
@@ -28,6 +29,7 @@ context CommandFile do
     file.validate
     expect(file.error_message).to match /There's not a space after the command/
   end
+=end
   context 'new image command' do
     it 'has two params'
     context 'first param' do

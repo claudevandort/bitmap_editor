@@ -14,9 +14,24 @@ class BitmapEditor
     end
 
     file.each do |line|
-      puts line
+      case line[:command]
+      when 'I'
+        puts 'New Image'
+      when 'C'
+        puts 'Clear'
+      when 'L'
+        puts 'Color pixel'
+      when 'V'
+        puts 'Draw vertical'
+      when 'H'
+        puts 'Draw horizontal'
+      when 'S'
+        puts 'Show'
+      else
+        puts 'unrecognised command :('
+      end
     end
-
+=begin
     File.open(file).each do |line|
       line = line.chomp
       case line
@@ -26,5 +41,6 @@ class BitmapEditor
         puts 'unrecognised command :('
       end
     end
+=end
   end
 end
