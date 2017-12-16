@@ -7,9 +7,14 @@ class BitmapEditor
 
   def run(file_path)
     file = CommandFile.new file_path
+
     unless file.valid?
       file.show_error if verbose
       return false
+    end
+
+    file.each do |line|
+      puts line
     end
 
     File.open(file).each do |line|

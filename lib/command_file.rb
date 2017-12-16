@@ -1,5 +1,5 @@
 class CommandFile
-  attr_accessor :path, :errors
+  attr_accessor :path, :errors, :output
   VALIDATIONS = %w{
     path_is_defined
     path_is_valid
@@ -15,6 +15,14 @@ class CommandFile
   def valid?
     validate
     errors.empty?
+  end
+
+  def each
+    File.open(path).each do |line|
+      array = line.chomp.split ' '
+      response = {command: array[0], params: array[1..-1]}
+      yield response
+    end if valid?
   end
 
   def validate
@@ -55,14 +63,16 @@ class CommandFile
   end
 
   def command_manes_are_valid
-    File.open(path).each do |line|
-      return raise StandardError, 'File has invalid commands' if /[ICLVHS]/.match(line[0]).nil?
+    File.open(path).each_with_index do |line, index|
+      return raise StandardError, "Unrecognised command #{line[0]} in line #{index+1}" if /[ICLVHS]/.match(line[0]).nil?
     end if valid_file?
   end
 
   def space_after_command_name
     File.open(path).each do |line|
-      return raise StandardError, 'There\'s not a space after the command name' if /[ ]/.match(line[1]).nil?
+      unless /[ILVH]/.match(line[0]).nil?
+        return raise StandardError, "There's not a space after the command #{line[0]}" unless line[1] == ' '
+      end
     end if valid_file?
   end
 end

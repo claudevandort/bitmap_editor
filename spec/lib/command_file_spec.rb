@@ -21,14 +21,14 @@ context CommandFile do
   it 'lines have a valid command name' do
     file = CommandFile.new 'examples/invalid_commands.txt'
     file.validate
-    expect(file.error_message).to eq 'File has invalid commands'
+    expect(file.error_message).to match /Unrecognised command/
+  end
+  it 'requires whitespace separation after all command names' do
+    file = CommandFile.new 'examples/params_missing_separation.txt'
+    file.validate
+    expect(file.error_message).to match /There's not a space after the command/
   end
   context 'new image command' do
-    it 'has whitespace separation after command name' do
-      file = CommandFile.new 'examples/params_missing_separation.txt'
-      file.validate
-      expect(file.error_message).to eq 'There\'s not a space after the command name'
-    end
     it 'has two params'
     context 'first param' do
       it 'is a number'
