@@ -16,14 +16,15 @@ module Validatable
 
   def validate(*args)
     self.errors = []
-    filtered_validations = if args.any?
-      if validations.include? args[0]
-        {method: args[0], args: args[1..-1]}
+    filtered_validations = []
+    if args.any?
+      if validations.include? args[0].to_s
+        filtered_validations << {method: args[0], args: args[1..-1]}
       else
         raise ArgumentError, "Validation Error: #{args[0]} method not found"
       end
     else
-      validations
+      filtered_validations = validations
     end
     filtered_validations.each do |val|
       begin

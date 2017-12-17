@@ -67,7 +67,7 @@ class BitmapEditor
 
   def command_exists(command)
     unless command.match(%r"[#{commands.keys.join}]").present?
-      raise StandardError, "Unrecognised command #{c} :("
+      raise StandardError, "Unrecognised command #{command} :("
     end
   end
 end
