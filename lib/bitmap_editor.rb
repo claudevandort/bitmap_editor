@@ -21,6 +21,8 @@ class BitmapEditor
         return false
       end
 
+      command = commands[line[:command]].new(*line[:params])
+
       case line[:command]
       when 'I'
         puts 'New Image'
