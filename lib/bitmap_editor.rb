@@ -1,8 +1,9 @@
 class BitmapEditor
-  attr_accessor :verbose, :file
+  attr_accessor :verbose, :file, :commands
 
   def initialize(verbose: true)
     self.verbose = verbose
+    register_commands
   end
 
   def run(file_path)
@@ -42,5 +43,13 @@ class BitmapEditor
       end
     end
 =end
+  end
+
+  def register_commands
+    self.commands = {}
+    Dir.glob('lib/commands/*.rb').each do |file|
+      klass = file.split('/')[-1][0..-4].humanize.titleize.tr(' ', '').constantize
+      commands[klass::NAME] = klass
+    end
   end
 end

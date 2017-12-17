@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+require 'active_support/all'
+Dir["./lib/commands/*.rb"].each {|file| require file }
 require './lib/command_file'
 require './lib/bitmap_editor'
 
