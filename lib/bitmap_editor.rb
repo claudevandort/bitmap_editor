@@ -1,4 +1,5 @@
 class BitmapEditor
+  include Validatable
   attr_accessor :verbose, :file, :commands
 
   def initialize(verbose: true)
@@ -15,6 +16,11 @@ class BitmapEditor
     end
 
     file.each do |line|
+      unless valid? :command_exists, line[:command]
+        show_error if verbose
+        return false
+      end
+
       case line[:command]
       when 'I'
         puts 'New Image'
@@ -50,6 +56,18 @@ class BitmapEditor
     Dir.glob('lib/commands/*.rb').each do |file|
       klass = file.split('/')[-1][0..-4].humanize.titleize.tr(' ', '').constantize
       commands[klass::NAME] = klass
+    end
+  end
+
+  def validations
+    %w{
+      command_exists
+    }
+  end
+
+  def command_exists(command)
+    unless command.match(%r"[#{commands.keys.join}]").present?
+      raise StandardError, "Unrecognised command #{c} :("
     end
   end
 end

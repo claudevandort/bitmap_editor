@@ -1,3 +1,4 @@
+require 'validatable'
 require 'command_file'
 
 context CommandFile do

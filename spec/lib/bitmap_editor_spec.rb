@@ -1,3 +1,6 @@
+require 'active_support/all'
+require 'validatable'
+Dir["./lib/commands/*.rb"].each {|file| require file }
 require 'command_file'
 require 'bitmap_editor'
 
