@@ -8,15 +8,16 @@ class BitmapEditor
   end
 
   def run(file_path)
-    file = CommandFile.new file_path
+    self.file = CommandFile.new file_path
 
     unless file.valid?
       file.show_error if verbose
       return false
     end
 
-    file.each do |line|
-      unless valid? :command_exists, line[:command]
+    file.each_with_index do |line, index|
+      unless valid?(:command_exists, line[:command]) and
+        valid?(:first_new_image)
         show_error if verbose
         return false
       end
@@ -40,17 +41,6 @@ class BitmapEditor
         puts 'unrecognised command :('
       end
     end
-=begin
-    File.open(file).each do |line|
-      line = line.chomp
-      case line
-      when 'S'
-        puts 'There is no image'
-      else
-        puts 'unrecognised command :('
-      end
-    end
-=end
   end
 
   def register_commands
@@ -64,12 +54,21 @@ class BitmapEditor
   def validations
     %w{
       command_exists
+      first_new_image
     }
   end
 
   def command_exists(command)
     unless command.match(%r"[#{commands.keys.join}]").present?
       raise StandardError, "Unrecognised command #{command} :("
+    end
+  end
+
+  def first_new_image
+    file.each_with_index do |line, index|
+      if index.zero? and line[:command] != 'I'
+        raise StandardError, 'The first command needs to create an image'
+      end
     end
   end
 end

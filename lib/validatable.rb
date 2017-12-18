@@ -15,6 +15,30 @@ module Validatable
   end
 
   def validate(*args)
+    validate_args(*args) do |val|
+      begin
+        if val.is_a? Hash
+          send val[:method], *val[:args]
+        else
+          send val
+        end
+      rescue StandardError => e
+        errors << e
+      end
+    end
+  end
+
+  def validate!(*args)
+    validate_args(*args) do |val|
+      if val.is_a? Hash
+        send val[:method], *val[:args]
+      else
+        send val
+      end
+    end
+  end
+
+  def validate_args(*args)
     self.errors = []
     filtered_validations = []
     if args.any?
@@ -27,15 +51,7 @@ module Validatable
       filtered_validations = validations
     end
     filtered_validations.each do |val|
-      begin
-        if val.is_a? Hash
-          send val[:method], *val[:args]
-        else
-          send val
-        end
-      rescue StandardError => e
-        errors << e
-      end
+      yield val
     end
   end
 

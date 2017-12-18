@@ -22,7 +22,7 @@ context CommandFile do
   context 'clear command' do
     it 'has no params'
   end
-  context 'colour pixel command' do
+  context 'draw pixel command' do
     it 'has three params'
     context 'first param' do
       it 'is a number'

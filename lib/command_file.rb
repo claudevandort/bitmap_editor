@@ -6,11 +6,11 @@ class CommandFile
     self.path = file_path
   end
 
-  def each
-    File.open(path).each do |line|
+  def each_with_index
+    File.open(path).each_with_index do |line, index|
       array = line.chomp.split ' '
       response = {command: array[0], params: array[1..-1]}
-      yield response
+      yield response, index
     end if valid?
   end
 
