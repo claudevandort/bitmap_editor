@@ -75,7 +75,4 @@ context CommandFile do
       it 'is a capital letter'
     end
   end
-  context 'show command' do
-    it 'has no params'
-  end
 end
