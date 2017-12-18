@@ -17,7 +17,8 @@ class BitmapEditor
 
     file.each_with_index do |line, index|
       unless valid?(:command_exists, line[:command]) and
-        valid?(:first_new_image)
+        valid?(:first_new_image) and
+        valid?(:last_shows)
         show_error if verbose
         return false
       end
@@ -55,6 +56,7 @@ class BitmapEditor
     %w{
       command_exists
       first_new_image
+      last_shows
     }
   end
 
@@ -68,6 +70,14 @@ class BitmapEditor
     file.each_with_index do |line, index|
       if index.zero? and line[:command] != 'I'
         raise StandardError, 'The first command needs to create an image'
+      end
+    end
+  end
+
+  def last_shows
+    file.each_with_index do |line, index|
+      if index == (file.count-1) and line[:command] != 'S'
+        raise StandardError, 'The last command needs to show the image'
       end
     end
   end

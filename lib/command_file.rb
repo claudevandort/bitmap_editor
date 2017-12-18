@@ -14,6 +14,10 @@ class CommandFile
     end if valid?
   end
 
+  def count
+    File.open(path).count
+  end
+
   def validations
     %w{
       path_is_defined

@@ -19,8 +19,13 @@ context BitmapEditor do
     expect(editor.error_message).to match /Unrecognised command/
   end
   it 'fails if the first command is not to create an image' do
-    file_with_invalid_commands = 'examples/first_not_new_image.txt'
-    editor.run(file_with_invalid_commands)
+    first_not_new_image = 'examples/first_not_new_image.txt'
+    editor.run(first_not_new_image)
     expect(editor.error_message).to eq 'The first command needs to create an image'
+  end
+  it 'fails if Show is not the last command' do
+    last_is_not_show = 'examples/last_is_not_show.txt'
+    editor.run(last_is_not_show)
+    expect(editor.error_message).to eq 'The last command needs to show the image'
   end
 end
