@@ -1,4 +1,5 @@
 class DrawVertical
+  include Validatable
   NAME = 'V'
   LONG_NAME = 'Draw Vertical'
   attr_accessor :params

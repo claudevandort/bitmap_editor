@@ -11,6 +11,10 @@ class NewImage
     self.params = params
   end
 
+  def run
+    Bitmap.new params[0], params[1]
+  end
+
   def validations
     %w{
       valid_params_count
@@ -30,7 +34,7 @@ class NewImage
   end
 
   def first_param_is_within_allowed_range
-    raise StandardError, 'First param is not within the allowed range' unless params[0].between? MIN_SIZE, MAX_SIZE
+    raise StandardError, 'First param is not within the allowed range' unless params[0].to_i.between? MIN_SIZE, MAX_SIZE
   end
 
   def second_param_is_an_integer
@@ -38,6 +42,6 @@ class NewImage
   end
 
   def second_param_is_within_allowed_range
-    raise StandardError, 'Second param is not within the allowed range' unless params[1].between? MIN_SIZE, MAX_SIZE
+    raise StandardError, 'Second param is not within the allowed range' unless params[1].to_i.between? MIN_SIZE, MAX_SIZE
   end
 end

@@ -19,9 +19,6 @@ context CommandFile do
     file.validate
     expect(file.error_message).to eq 'Please provide a populated file'
   end
-  context 'clear command' do
-    it 'has no params'
-  end
   context 'draw pixel command' do
     it 'has three params'
     context 'first param' do

@@ -1,4 +1,5 @@
 require 'validatable'
+require 'bitmap'
 require 'commands/new_image'
 
 context NewImage do
@@ -30,5 +31,20 @@ context NewImage do
       command.validate
       expect(command.error_message).to eq 'Second param is not within the allowed range'
     end
+  end
+  it '.run returns a Bitmap' do
+    command = NewImage.new 50, 100
+    bitmap = command.run
+    expect(bitmap).to be_a Bitmap
+  end
+  it '.run creates a Bitmap of width M' do
+    command = NewImage.new 50, 100
+    bitmap = command.run
+    expect(bitmap.width).to eq 50
+  end
+  it '.run creates a Bitmap of heigth N' do
+    command = NewImage.new 50, 100
+    bitmap = command.run
+    expect(bitmap.heigth).to eq 100
   end
 end

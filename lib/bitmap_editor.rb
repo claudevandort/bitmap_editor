@@ -16,6 +16,7 @@ class BitmapEditor
     end
 
     file.each_with_index do |line, index|
+      puts line[:command]
       unless valid?(:command_exists, line[:command]) and
         valid?(:first_new_image) and
         valid?(:last_shows)
@@ -24,22 +25,9 @@ class BitmapEditor
       end
 
       command = commands[line[:command]].new(*line[:params])
-
-      case line[:command]
-      when 'I'
-        puts 'New Image'
-      when 'C'
-        puts 'Clear'
-      when 'L'
-        puts 'Color pixel'
-      when 'V'
-        puts 'Draw vertical'
-      when 'H'
-        puts 'Draw horizontal'
-      when 'S'
-        puts 'Show'
-      else
-        puts 'unrecognised command :('
+      unless command.valid?
+        command.show_error if verbose
+        return false
       end
     end
   end
