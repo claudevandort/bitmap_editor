@@ -1,22 +1,23 @@
 class Bitmap
   attr_accessor :matrix
   def initialize(width, heigth)
-    self.matrix = Array.new(width){Array.new(heigth){'O'}}
+    self.matrix = Array.new(heigth){Array.new(width){'O'}}
   end
 
   def width
-    matrix.count
-  end
-
-  def heigth
     matrix[0].count
   end
 
-  def print
-    matrix.each do |x|
-      y.each do |y|
-        puts matrix[x][y]
+  def heigth
+    matrix.count
+  end
+
+  def show
+    matrix.each do |column|
+      column.each do |row|
+        print row
       end
+      puts ''
     end
   end
 end
