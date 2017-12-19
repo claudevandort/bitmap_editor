@@ -12,7 +12,7 @@ class NewImage
   end
 
   def run
-    Bitmap.new params[0], params[1]
+    Bitmap.new params[0].to_i, params[1].to_i
   end
 
   def validations

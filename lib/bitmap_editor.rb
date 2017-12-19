@@ -1,6 +1,6 @@
 class BitmapEditor
   include Validatable
-  attr_accessor :verbose, :file, :commands
+  attr_accessor :verbose, :file, :commands, :output
 
   def initialize(verbose: true)
     self.verbose = verbose
@@ -27,6 +27,11 @@ class BitmapEditor
       unless command.valid?
         command.show_error if verbose
         return false
+      end
+      self.output = if index.zero?
+        command.run
+      else
+        command.run output
       end
     end
   end

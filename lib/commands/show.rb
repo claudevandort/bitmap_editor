@@ -9,6 +9,11 @@ class Show
     self.params = params
   end
 
+  def run(bitmap)
+    bitmap.show
+    bitmap
+  end
+
   def validations
     %w{
       valid_params_count
