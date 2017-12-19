@@ -1,5 +1,6 @@
 require 'validatable'
 require 'bitmap'
+require 'commands/new_image'
 require 'commands/draw_pixel'
 
 context DrawPixel do
@@ -49,5 +50,9 @@ context DrawPixel do
       expect(command.error_message).to eq 'Third param is not a capital letter'
     end
   end
-  it 'draws the specified color in the given position'
+  it 'draws the specified color in the given position' do
+    bitmap = NewImage.new(5, 6).run
+    bitmap = DrawPixel.new(2, 3, 'A').run bitmap
+    expect(bitmap.get_pixel(2, 3)).to eq 'A'
+  end
 end
