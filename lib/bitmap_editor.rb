@@ -16,7 +16,6 @@ class BitmapEditor
     end
 
     file.each_with_index do |line, index|
-      puts line[:command]
       unless valid?(:command_exists, line[:command]) and
         valid?(:first_new_image) and
         valid?(:last_shows)
