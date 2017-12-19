@@ -9,6 +9,15 @@ class Clear
     self.params = params
   end
 
+  def run(bitmap)
+    (1..bitmap.heigth).each do |y|
+      (1..bitmap.width).each do |x|
+        bitmap.set_color x, y, 'O'
+      end
+    end
+    bitmap
+  end
+
   def validations
     %w{
       valid_params_count
