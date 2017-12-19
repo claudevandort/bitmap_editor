@@ -19,23 +19,4 @@ context CommandFile do
     file.validate
     expect(file.error_message).to eq 'Please provide a populated file'
   end
-  context 'draw horizontal segment command' do
-    it 'has four params'
-    context 'first param' do
-      it 'is a number'
-      it 'is in the range 1..250'
-    end
-    context 'second param' do
-      it 'is a number'
-      it 'is in the range 1..250'
-    end
-    context 'third param' do
-      it 'is a number'
-      it 'is in the range 1..250'
-    end
-    context 'fourth param' do
-      it 'is a character'
-      it 'is a capital letter'
-    end
-  end
 end
