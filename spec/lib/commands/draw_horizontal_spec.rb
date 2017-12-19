@@ -64,9 +64,9 @@ context DrawHorizontal do
   end
   it 'draws the specified color in the given segment' do
     bitmap = NewImage.new(5, 6).run
-    x = 2; y1 = 3; y2 = 4; color = 'A'
-    bitmap = DrawHorizontal.new(x, y1, y2, color).run bitmap
-    (y1..y2).each do |y|
+    x1 = 2; x2 = 3; y = 4; color = 'A'
+    bitmap = DrawHorizontal.new(x1, x2, y, color).run bitmap
+    (x1..x2).each do |x|
       expect(bitmap.get(x, y)).to eq color
     end
   end
