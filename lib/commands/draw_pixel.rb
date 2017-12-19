@@ -9,6 +9,11 @@ class DrawPixel
     self.params = params
   end
 
+  def run(bitmap)
+    bitmap.set_color params[0].to_i, params[1].to_i, params[2]
+    bitmap
+  end
+
   def validations
     %w{
       valid_params_count

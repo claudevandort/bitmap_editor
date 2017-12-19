@@ -53,6 +53,6 @@ context DrawPixel do
   it 'draws the specified color in the given position' do
     bitmap = NewImage.new(5, 6).run
     bitmap = DrawPixel.new(2, 3, 'A').run bitmap
-    expect(bitmap.get_pixel(2, 3)).to eq 'A'
+    expect(bitmap.get(2, 3)).to eq 'A'
   end
 end
