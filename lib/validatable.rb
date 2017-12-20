@@ -14,6 +14,11 @@ module Validatable
     errors.empty?
   end
 
+  def valid!(*args)
+    validate! *args
+    errors.empty?
+  end
+
   def validate(*args)
     validate_args(*args) do |val|
       begin

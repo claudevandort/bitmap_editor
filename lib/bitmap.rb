@@ -1,4 +1,5 @@
 class Bitmap
+  include Validatable
   attr_accessor :matrix
   def initialize(width, heigth)
     self.matrix = Array.new(heigth){Array.new(width){'O'}}
@@ -28,6 +29,7 @@ class Bitmap
   end
 
   def set_color(x, y, color)
+    return unless valid? :valid_coords, x, y
     matrix[y-1][x-1] = color
   end
 
@@ -36,6 +38,18 @@ class Bitmap
       row.each_with_index do |column, column_index|
         yield column, row_index, column_index, row
       end
+    end
+  end
+
+  def validations
+    %w{
+      valid_coords
+    }
+  end
+
+  def valid_coords(x, y)
+    unless x.between?(1, width) and y.between?(1, heigth)
+      raise StandardError, "You're trying to edit a pixel that doesn't exists"
     end
   end
 end

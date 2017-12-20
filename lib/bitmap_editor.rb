@@ -33,6 +33,10 @@ class BitmapEditor
       else
         command.run output
       end
+      if output.errors.present? and output.errors.any?
+        output.show_error
+        return false
+      end
     end
   end
 
